@@ -6,9 +6,10 @@ public final class StencilRenderer: ViewRenderer {
     public let cache: SystemCache<Template>
     public let environment: Stencil.Environment
 
-    public init(environment: Stencil.Environment) {
-        self.environment = environment
-        self.cache = SystemCache<Template>(maxSize: 10.megabytes)
+    public init(workDir: String, cacheSize: Int? = nil) {
+        let extensions = Extension()
+        environment = Stencil.Environment(extensions: [extensions])
+        self.cache = SystemCache<Template>(maxSize: cacheSize ?? 10.megabytes)
     }
     
     public func make(_ path: String, _ data: ViewData) throws -> View {
@@ -34,9 +35,10 @@ extension StencilRenderer {
 
 extension StencilRenderer: ConfigInitializable {
     public convenience init(config: Config) throws {
-        let extensions = Extension()
-        let environment = Stencil.Environment(extensions: [extensions])
-        self.init(environment: environment)
+        self.init(
+            workDir: config.viewsDir,
+            cacheSize: config["stencil", "cacheSize"]?.int
+        )
     }
 }
 
