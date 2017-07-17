@@ -1,5 +1,6 @@
 import Vapor
 import Stencil
+import PathKit
 
 public final class StencilRenderer: ViewRenderer {
     public var shouldCache: Bool = false
@@ -8,7 +9,8 @@ public final class StencilRenderer: ViewRenderer {
 
     public init(workDir: String, cacheSize: Int? = nil) {
         let extensions = Extension()
-        environment = Stencil.Environment(extensions: [extensions])
+        let loader = FileSystemLoader(paths: [Path(workDir)])
+        environment = Stencil.Environment(loader: loader, extensions: [extensions])
         self.cache = SystemCache<Template>(maxSize: cacheSize ?? 10.megabytes)
     }
     
