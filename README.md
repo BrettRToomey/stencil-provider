@@ -8,8 +8,8 @@ A Vapor provider and custom command set for [Stencil](https://github.com/kylef/S
 
 ## Integration
 
-#### Vapor Toolbox (Beta)
-The latest Vapor [toolbox](https://docs.vapor.codes/2.0/getting-started/toolbox/) beta makes it simple to setup this provider. Just run:
+#### Vapor Toolbox
+The latest Vapor [toolbox](https://docs.vapor.codes/2.0/getting-started/toolbox/) toolbox makes it simple to setup this provider. Just run:
 ```swift
 vapor-beta provider add BrettRToomey/stencil-provider
 ```
